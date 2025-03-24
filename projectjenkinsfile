@@ -45,7 +45,7 @@ pipeline
           echo 'This is to build Docker Image'
           withCredentials([usernamePassword(credentialsId: 'docker-id-user', passwordVariable: 'docker-pass', usernameVariable: 'docker-user')]) 
           {
-            sh 'docker login -u ${docker-user} -p ${docker-pass}*
+            sh 'docker login -u ${docker-user} -p ${docker-pass}'
           }
         }
       }
