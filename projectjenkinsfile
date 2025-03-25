@@ -54,7 +54,7 @@ pipeline
       steps 
         {
           echo 'Deploying the Application using Ansible'
-          ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'ansible-playbook.yml', playbook: '', vaultTmpPath: ''
+          ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'Ansible', playbook: '/var/lib/jenkins/workspace/Insure-ME/ansible-playbook.yml', vaultTmpPath: ''
         }
       }
   }
