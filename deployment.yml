@@ -1,19 +1,40 @@
 ---
-- name: Configure Docker on Deployserver 
-  hosts: all 
-  become: true 
+- name: Configure Docker on Deployserver
+  hosts: all
+  become: true
+
   tasks:
-  - name: apt updating
-    command: sudo apt update
-  - name: Install python and Pip 
-    command: sudo apt install -y python-pip
-  - name: Installing Docker
-    command: sudo apt-get install -y docker.io
-    become: yes 
-    become_user: root
-  - name: start docker service using systemctl 
-    command: sudo systemctl start docker 
-    become: yes 
-    become_user: root
-  - name: Deploy the Image from DockerHub and Run as Container 
-    command: docker run -itd -p 8080:8081 aniirudh/insure-meproject:latest
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - python3-pip
+          - docker.io
+        state: present
+
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Install Docker Python module
+      pip:
+        name: docker
+
+    - name: Pull Docker image from DockerHub
+      community.docker.docker_image:
+        name: aniirudh/insure-meproject:latest
+        source: pull
+
+    - name: Run Docker container
+      community.docker.docker_container:
+        name: insure-me
+        image: aniirudh/insure-meproject:latest
+        state: started
+        restart_policy: always
+        published_ports:
+          - "8080:8081"
