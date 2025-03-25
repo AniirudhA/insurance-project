@@ -45,7 +45,7 @@ pipeline
           echo 'This is to build Docker Image'
           withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
           sh "echo $PASS | docker login -u $USER --password-stdin"
-            
+          sh 'docker push aniirudh/insure-meproject'  
           }
         }
       }
