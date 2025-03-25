@@ -34,4 +34,4 @@
         state: started
         restart_policy: always
         published_ports:
-          - "8080:8081"
+          - "9096:8081"
