@@ -49,6 +49,13 @@ pipeline
           }
         }
       }
-
+     stage('Ansible Playbook') 
+    {
+      steps 
+        {
+          echo 'Deploying the Application using Ansible'
+          ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'ansible-playbook.yml', playbook: '', vaultTmpPath: ''
+        }
+      }
   }
 }
