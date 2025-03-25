@@ -48,13 +48,6 @@ pipeline
           sh 'docker push aniirudh/insure-meproject'  
           }
         }
-      }
-     stage('Ansible Playbook') 
-    {
-      steps 
-        {
-          echo 'Deploying the Application using Ansible'
-          ansiblePlaybook credentialsId: 'sshkey', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: 'deployment.yml', vaultTmpPath: ''
-  }
+      
 }
 }
